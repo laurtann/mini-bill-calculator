@@ -1,30 +1,3 @@
-function calculateBills(bill, name1, name1Money, name2, name2Money) {
-  bill = addBills(bill)
-  let bigEarnerMoney;
-  let lowEarnerMoney;
-  let bigEarner;
-  let lowEarner;
-
-  console.log(bill, name1, name1Money, name2, name2Money)
-
-  if (+name1Money >= +name2Money) {
-      bigEarner = name1;
-      lowEarner = name2;
-      bigEarnerMoney = +name1Money;
-      lowEarnerMoney = +name2Money;
-  } else {
-      bigEarner = name2;
-      lowEarner = name1;
-      bigEarnerMoney = +name2Money;
-      lowEarnerMoney = +name1Money;
-  }
-
-  const lowEarnerPortion = (bill / bigEarnerMoney) * lowEarnerMoney;
-  const bigEarnerPortion = bill - lowEarnerPortion;
-
-  return (`${bigEarner} owes $${bigEarnerPortion.toFixed(2)} and ${lowEarner} owes $${lowEarnerPortion.toFixed(2)}`)
-}
-
 const addBills = (bills) =>  {
   if (bills.includes(',')) {
     bills = bills.replace(/\s/g, '').split(',').map(Number).reduce((a, b) => a + b);
@@ -32,6 +5,15 @@ const addBills = (bills) =>  {
     bills = +bills
   }
   return bills;
+}
+
+function calculateBills(bills, name1, name1Money, name2, name2Money) {
+  bills = addBills(bills)
+
+  const name1Bill = (bills / (+name1Money + +name2Money)) * +name1Money;
+  const name2Bill = bills - name1Bill;
+
+  return (`${name1} owes $${name1Bill.toFixed(2)} and ${name2} owes $${name2Bill.toFixed(2)}`)
 }
 
 export default function BillCalc({
@@ -51,7 +33,7 @@ export default function BillCalc({
       <p>{name1} income: {income1}</p>
       <p>{name2} income: {income2}</p>
       <p>Bills: {bills}</p>
-      <p>Bills Total: {addBills(bills)}</p>
+      <p>Bills Total: {addBills(bills).toFixed(2)}</p>
       <p><strong>{calculateBills(bills, name1, income1, name2, income2)}</strong></p>
       <button onClick={handlePress}>Make a change?</button>
     </div>
