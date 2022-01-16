@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/mini-bill-calculator/static/css/main.474a7801.css",
-    "main.js": "/mini-bill-calculator/static/js/main.1348c34b.js",
+    "main.js": "/mini-bill-calculator/static/js/main.0167bba3.js",
     "static/js/787.82a2ee19.chunk.js": "/mini-bill-calculator/static/js/787.82a2ee19.chunk.js",
     "index.html": "/mini-bill-calculator/index.html",
     "main.474a7801.css.map": "/mini-bill-calculator/static/css/main.474a7801.css.map",
-    "main.1348c34b.js.map": "/mini-bill-calculator/static/js/main.1348c34b.js.map",
+    "main.0167bba3.js.map": "/mini-bill-calculator/static/js/main.0167bba3.js.map",
     "787.82a2ee19.chunk.js.map": "/mini-bill-calculator/static/js/787.82a2ee19.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.474a7801.css",
-    "static/js/main.1348c34b.js"
+    "static/js/main.0167bba3.js"
   ]
 }
