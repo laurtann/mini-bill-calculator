@@ -1,5 +1,11 @@
 import {useState} from 'react'
+import {Box, TextField, Button, Typography} from '@mui/material';
+import {createTheme, responsiveFontSizes, ThemeProvider} from '@mui/material/styles';
 import BillCalc from './BillCalc'
+import './App.css';
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 function App() {
   const [name1, setName1] = useState('Laura')
@@ -12,6 +18,13 @@ function App() {
   const handleSubmit = (e) => {
     setIsSubmitted(true)
     e.preventDefault()
+  }
+
+  const validateForm = (e) => {
+    if (!name1 || !name2 || (!income1 || income1 == 0) || (!income2 || income2 == 0) || (!bills || bills == 0)) {
+      alert('Entry error. Please complete all required fields')
+      e.preventDefault()
+    }
   }
 
   const resetValues = (e) => {
@@ -32,73 +45,75 @@ function App() {
     setIsSubmitted
   }
   return (
-    <div>
-      { isSubmitted ? (
-        <BillCalc
-          {...billCalcDefaultProps}
-        />
-      ) : (
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Enter name 1:
-              <input
+    <ThemeProvider theme={theme}>
+      <Box>
+        <Typography variant="h2" component="h1">Mini Bill Calculator</Typography>
+        <Typography variant="h4" component="h3">Easily split bills by percentage of income</Typography>
+        { isSubmitted ? (
+          <BillCalc
+            {...billCalcDefaultProps}
+          />
+        ) : (
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root, .MuiButton-root': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <div>
+              <TextField
+                required
                 name="name1"
+                label="Name 1"
                 value={name1}
                 onChange={e => setName1(e.target.value)}
-                required
               />
-            </label>
-            <br></br>
-            <label>
-              Enter income:
-              <input
+              <TextField
                 name="income1"
-                value={income1}
+                label="Income 1"
                 type="number"
+                value={income1}
                 onChange={e => setIncome1(e.target.value)}
                 required
               />
-            </label>
-            <br></br>
-            <label>
-              Enter name 2:
-              <input
+            </div>
+            <div>
+              <TextField
+                required
                 name="name2"
+                label="Name 2"
                 value={name2}
                 onChange={e => setName2(e.target.value)}
-                required
               />
-            </label>
-            <br></br>
-            <label>
-              Enter income:
-              <input
+              <TextField
                 name="income2"
-                value={income2}
+                label="Income 2"
                 type="number"
+                value={income2}
                 onChange={e => setIncome2(e.target.value)}
                 required
               />
-            </label>
-            <br></br>
-            <label>
-              Enter bills (separated by commas):
-              <input
+            </div>
+            <div>
+              <TextField
                 name="bills"
+                label="Bills (separated by commas)"
                 value={bills}
                 onChange={e => setBills(e.target.value)}
                 required
               />
-            </label>
-            <br></br>
-            <input type="submit" value="Submit" />
-          </form>
-          <br></br>
-          <button onClick={resetValues}>Reset values</button>
-        </div>
-      )}
-    </div>
+            </div>
+            <div>
+              <Button onClick={validateForm} type="submit" variant="contained">Calculate</Button>
+              <Button onClick={resetValues} variant="contained" color="secondary">Reset Values</Button>
+            </div>
+          </Box>
+        )}
+      </Box>
+    </ThemeProvider>
   );
 }
 
